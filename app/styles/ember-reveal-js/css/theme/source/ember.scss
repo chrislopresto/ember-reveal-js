@@ -1,0 +1,59 @@
+/**
+ * Ember theme for reveal.js.
+ * Ported from http://hbrysiewicz.github.io/2014-10-10-ember-reveal-theme.html
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,600,300italic,700italic);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: rgb(248,239,236);
+
+$mainColor: black;
+$headingColor: black;
+
+$mainFontSize: 36px;
+$mainFont: 'Open Sans', sans-serif;
+$headingMargin: 0 0 20px 0;
+$headingFont: 'Open Sans', sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: 0.02em;
+$headingTextTransform: none;
+$linkColor: rgb(242, 56, 24);
+$linkColorHover: #0000f1;
+$selectionColor: white;
+$selectionBackgroundColor: rgba(0, 0, 0, 0.99);
+
+.reveal {
+  font-weight: 300;
+}
+
+.reveal h3 {
+  font-weight: 600;
+}
+
+.reveal h1 {
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+}
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+// Background generator
+@mixin bodyBackground() {
+  background: rgb(248,239,236) url('ember-reveal-js/ember-background-shades.svg');
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------

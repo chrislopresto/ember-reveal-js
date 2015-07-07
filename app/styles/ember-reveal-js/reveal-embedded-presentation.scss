@@ -1,0 +1,20 @@
+.reveal-embedded-presentation {
+  border: none;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+  max-width: 800px;
+}
+
+.reveal-embedded-presentation-wrapper {
+  height: 0;
+  padding-bottom: 62.5%; // 8:5
+  padding-top: 25px;
+  position: relative;
+
+  iframe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}

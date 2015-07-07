@@ -1,0 +1,9 @@
+@import "normalize";
+@import 'ember-reveal-js';
+
+@import 'components/presentation-listing';
+
+body {
+  font-family: sans-serif;
+  background: #ddd;
+}

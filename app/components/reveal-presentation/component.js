@@ -1,0 +1,1 @@
+export { default } from 'ember-reveal-js/components/reveal-presentation/component';

@@ -1,0 +1,62 @@
+@import 'css/reveal';
+
+.tomorrow-night {
+  @import 'highlight.js/tomorrow-night';
+}
+
+.zenburn {
+  @import 'highlight.js/zenburn';
+}
+
+.hybrid {
+  @import 'highlight.js/hybrid';
+}
+
+.atelier-cave-dark {
+  @import 'highlight.js/atelier-cave-dark';
+}
+
+.print-pdf {
+  @import 'css/print/pdf';
+}
+
+// Un-override global styles in reveal.scss
+html,
+body {
+  overflow: initial;
+}
+
+$themeName: 'beige';
+@import 'css/theme/source/beige';
+
+$themeName: 'black';
+@import 'css/theme/source/black';
+
+$themeName: 'blood';
+@import 'css/theme/source/blood';
+
+$themeName: 'league';
+@import 'css/theme/source/league';
+
+$themeName: 'moon';
+@import 'css/theme/source/moon';
+
+$themeName: 'night';
+@import 'css/theme/source/night';
+
+$themeName: 'serif';
+@import 'css/theme/source/serif';
+
+$themeName: 'simple';
+@import 'css/theme/source/simple';
+
+$themeName: 'sky';
+@import 'css/theme/source/sky';
+
+$themeName: 'solarized';
+@import 'css/theme/source/solarized';
+
+$themeName: 'white';
+@import 'css/theme/source/white';
+
+/*__ember-reveal-js-addon-themes__*/
