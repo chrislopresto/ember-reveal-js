@@ -1,6 +1,6 @@
 {
   "name": "ember-reveal-js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Include reveal.js presentations in Ember apps.",
   "directories": {
     "doc": "doc",
