@@ -16,6 +16,7 @@ export default EmberWormhole.extend(EKMixin, {
   isPrintingPdf: computed.alias('emberRevealJs.printPdf'),
   presentationWidth: computed.alias('emberRevealJs.presentationWidth'),
   presentationHeight: computed.alias('emberRevealJs.presentationHeight'),
+  // presentation-class - passed in
 
   transition: 'slide', // none|fade|slide|convex|concave|zoom
   backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
