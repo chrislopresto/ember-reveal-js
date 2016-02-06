@@ -2,7 +2,7 @@
 import Ember from 'ember';
 import layout from './template';
 
-const { computed, get, set, isBlank } = Ember;
+const { computed, get, set, isBlank, isPresent } = Ember;
 
 // NOTE: This component ports source from the reveal.js speaker notes plugin and
 //       therefore contains much code that is not idiomatic Ember.
@@ -10,9 +10,11 @@ export default Ember.Component.extend({
   classNames: ['reveal-speaker-notes'],
   layout,
 
+  emberRevealJs: Ember.inject.service(),
+
   didInsertElement() {
-    this._initializeSpeakerNotes();
     this._super();
+    this._initializeSpeakerNotes();
   },
 
   currentUrl: computed(function() {
@@ -42,7 +44,10 @@ export default Ember.Component.extend({
     this.handleConnectMessage();
 
     window.addEventListener( 'message', function( event ) {
-
+      var revealMessage = event && event.data && event.data.indexOf && (event.data.indexOf("reveal") > 0);
+      if (!revealMessage) {
+        return;
+      }
       // BEGIN-MONKEYPATCH notesjs-locals
       var Reveal = self.get('currentSlide').contentWindow.Reveal;
       // END-MONKEYPATCH notesjs-locals
@@ -103,7 +108,20 @@ export default Ember.Component.extend({
       upcomingSlide.contentWindow.postMessage( JSON.stringify({ method: 'setState', args: [ data.state ] }), '*' );
       upcomingSlide.contentWindow.postMessage( JSON.stringify({ method: 'next' }), '*' );
       // END-SNIPPET handleStateMessage
+
+      self._syncRevealState(data.state);
     });
+  },
+
+  _syncRevealState(state) {
+    set(this, 'emberRevealJs.indexh', state.indexh);
+    set(this, 'emberRevealJs.indexv', state.indexv);
+    if (isPresent(state.paused)) {
+      set(this, 'emberRevealJs.paused', !!state.paused);
+    }
+    if (isPresent(state.overview)) {
+      set(this, 'emberRevealJs.overview', !!state.overview);
+    }
   },
 
   handleConnectMessage: function( /* data */ ) {

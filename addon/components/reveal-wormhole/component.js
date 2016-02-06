@@ -10,8 +10,8 @@ export default EmberWormhole.extend({
 
   matchesPresentationState: computed('emberRevealJs.indexh', 'emberRevealJs.indexv',
     function() {
-      let indexh = this.get('emberRevealJs.indexh') + '';
-      let indexv = this.get('emberRevealJs.indexv') + '';
+      let indexh = `${this.get('emberRevealJs.indexh')}`;
+      let indexv = `${this.get('emberRevealJs.indexv')}`;
       let h = this.get('h');
       let v = this.get('v');
       let match = true;

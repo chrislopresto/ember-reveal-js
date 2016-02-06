@@ -38,9 +38,9 @@ export default EmberWormhole.extend(EKMixin, {
   }),
 
   didInsertElement() {
+    this._super();
     this._initializeReveal();
     this.set('keyboardActivated', true);
-    this._super();
   },
 
   speakerNotesUrl() {
