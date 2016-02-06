@@ -28,7 +28,7 @@ module.exports = {
   },
 
   treeForVendor: function() {
-    return new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js')), {
+    return new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
       srcDir: '/',
       destDir: '/reveal.js',
       files: [
@@ -41,7 +41,9 @@ module.exports = {
     });
   },
 
-  treeForStyles: function() {
+  treeForStyles: function(tree) {
+    tree = this._super.treeForStyles.apply(this, [tree]);
+
     var addonThemesDir = 'app/styles/ember-reveal-js/css/theme/source';
     var addonThemeFiles = fs.readdirSync(addonThemesDir);
 
@@ -58,12 +60,7 @@ module.exports = {
     addonThemesScss = '\n/* BEGIN ember-reveal-js-addon-themes */\n' + addonThemesScss;
     addonThemesScss += '/* END ember-reveal-js-addon-themes */\n';
 
-    var stylesPath = path.join(__dirname, 'app', 'styles');
-    var stylesTree = new Funnel(this.treeGenerator(stylesPath), {
-      srcDir: '/',
-      destDir: '/app/styles'
-    });
-    var stylesTree = replace(stylesTree, {
+    var stylesTree = replace(tree, {
       files: [
         'app/styles/ember-reveal-js/ember-reveal-js-themes.scss'
       ],
@@ -73,27 +70,14 @@ module.exports = {
       }
     });
 
-    var revealCssTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js/css')), {
-      srcDir: '/',
+    var revealCssTree = new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
+      srcDir: '/css',
       destDir: '/app/styles/ember-reveal-js/css',
       include: [
         'reveal.scss',
         'theme/**/*.scss'
       ]
     });
-
-    var revealPrintCssTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js/css/print')), {
-      srcDir: '/',
-      destDir: '/app/styles/ember-reveal-js/css/print'
-    });
-    revealPrintCssTree = stew.rename(revealPrintCssTree, '.css', '.scss');
-
-    var highlightJsTree = new Funnel(unwatchedTree('node_modules/highlight.js/styles'), {
-      srcDir: '/',
-      destDir: '/app/styles/ember-reveal-js/highlight.js'
-    });
-    highlightJsTree = stew.mv(highlightJsTree, 'app/styles/ember-reveal-js/highlight.js/{zenburn,tomorrow-night,hybrid,atelier-cave-dark}.css', 'app/styles/ember-reveal-js/highlight.js/');
-    highlightJsTree = stew.rename(highlightJsTree, '.css', '.scss');
 
     var replaceCssTree = replace(revealCssTree, {
       files: [
@@ -128,8 +112,14 @@ module.exports = {
       ]
     });
 
-    var fontCssTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js/lib')), {
-      srcDir: '/font',
+    var revealPrintCssTree = new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
+      srcDir: '/css/print',
+      destDir: '/app/styles/ember-reveal-js/css/print'
+    });
+    revealPrintCssTree = stew.rename(revealPrintCssTree, '.css', '.scss');
+
+    var fontCssTree = new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
+      srcDir: '/lib/font',
       destDir: '/app/styles/ember-reveal-js/lib/font',
       files: [
         'league-gothic/league-gothic.css',
@@ -137,14 +127,21 @@ module.exports = {
       ]
     });
 
+    var highlightJsTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
+      srcDir: '/styles',
+      destDir: '/app/styles/ember-reveal-js/highlight.js'
+    });
+    highlightJsTree = stew.rename(highlightJsTree, '.css', '.scss');
+
     return mergeTrees([
         stylesTree,
         replaceCssTree,
         fontCssTree,
         revealPrintCssTree,
         highlightJsTree
-      ],
-      { overwrite: false }
+      ], {
+        overwrite: true
+      }
     );
   },
 
@@ -154,16 +151,16 @@ module.exports = {
       srcDir: '/',
       destDir: '/assets/ember-reveal-js'
     });
-    var fontTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js/lib')), {
-      srcDir: '/font',
+    var fontTree = new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
+      srcDir: '/lib/font',
       destDir: '/assets/ember-reveal-js/lib/font'
     });
-    var pluginTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js')), {
+    var pluginTree = new Funnel(unwatchedTree(path.dirname(require.resolve('reveal.js/package.json'))), {
       srcDir: '/plugin',
       destDir: '/assets/ember-reveal-js/plugin'
     });
-    var classListTree = new Funnel(unwatchedTree(path.join(__dirname, 'node_modules/reveal.js/lib')), {
-      srcDir: '/js',
+    var classListTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
+      srcDir: '/lib/js',
       destDir: '/assets/ember-reveal-js/lib/js'
     });
     return mergeTrees([

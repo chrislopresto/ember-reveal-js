@@ -83,7 +83,8 @@ export default Ember.Component.extend({
       var notes = get(self, 'notes');
       var notesValue = get(self, 'notesValue');
       var currentSlide = {
-        contentWindow: window.opener
+        // PATCH: Add || window to support loading slide notes view in main window
+        contentWindow: window.opener || window
       };
       var upcomingSlide = get(self, 'upcomingSlide');
       // END-MONKEYPATCH handleStateMessage-locals
