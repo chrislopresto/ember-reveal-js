@@ -10,6 +10,26 @@
       - Hilarious story about eating tacos
     {{/reveal-slide-notes}}
   {{/reveal-slide}}
+
+  {{#reveal-slide}}
+    <h1>Code</h1>
+    {{#reveal-code language="ruby"}}
+  def create_hits
+    @annie = Annie.new options[:env]
+    setup_rturk
+    links = File.readlines(options[:file])
+    links = links.take(options[:limit]) if options[:limit]
+
+    links.each do |event_url|
+      create_hit_from_event_url event_url.gsub(/\s+/, ""),
+                                options[:reward],
+                                options[:max_assignments],
+                                options[:approval_rate]
+    end
+  end
+    {{/reveal-code}}
+  {{/reveal-slide}}
+
   {{#reveal-slide hasMarkdown=true}}
     <p>Have you ever eaten a taco?</p>
     ### Things to think about

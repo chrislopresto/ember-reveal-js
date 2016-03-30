@@ -23,6 +23,7 @@ export default Ember.Component.extend({
     } else {
       url += '&';
     }
+    url = url.replace(/&r=true/, '');
     url = url.replace(/r=true/, '');
     url += params;
     return url;

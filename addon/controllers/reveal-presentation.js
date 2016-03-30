@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
-const { computed } = Ember;
+const { computed, inject } = Ember;
 
 export default Ember.Controller.extend({
-  emberRevealJs: Ember.inject.service(),
+  emberRevealJs: inject.service(),
 
   queryParams: ['h', 'v', 'r', 'p', 'o', 'c', 't', 'ct', 'pw', 'ph', 'print-pdf'],
   h: computed.alias('emberRevealJs.indexh'),

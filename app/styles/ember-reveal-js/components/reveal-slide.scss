@@ -1,0 +1,12 @@
+.RevealSlide {
+  &-content {
+    &--centeredVertically {
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    &--scrollable {
+      overflow-y: scroll;
+    }
+  }
+}

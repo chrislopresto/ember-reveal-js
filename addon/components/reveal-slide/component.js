@@ -1,9 +1,11 @@
 import Ember from 'ember';
+import layout from './template';
 
 const { computed, get } = Ember;
 
 export default Ember.Component.extend({
-  classNames: ['reveal-slide'],
+  layout,
+  classNames: ['RevealSlide'],
   attributeBindings: [
     'data-markdown',
     'data-background',
@@ -20,5 +22,6 @@ export default Ember.Component.extend({
   hasMarkdown: null,
   'data-markdown': computed('hasMarkdown', function() {
     return get(this, 'hasMarkdown') || null;
-  })
+  }),
+  centeredVertically: false
 });
