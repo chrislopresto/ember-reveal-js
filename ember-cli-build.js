@@ -1,7 +1,6 @@
-/*jshint node:true*/
-/* global require, module */
-var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
-var stew = require('broccoli-stew');
+/* eslint-env node */
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const stew = require('broccoli-stew');
 
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
