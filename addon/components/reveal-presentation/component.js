@@ -69,7 +69,7 @@ export default EmberWormhole.extend(EKMixin, {
     Reveal.addEventListener('resumed', this._revealResumed);
     let self = this;
     Ember.subscribe('emberRevealJs.message', {
-      before: Ember.K,
+      before() {},
       after(name, timestamp, payload) {
         self._syncRevealState(payload);
       }
