@@ -1,16 +1,17 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 import layout from './template';
 
-const { computed, get } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: '',
 
-  emberRevealJs: Ember.inject.service(),
+  emberRevealJs: service(),
   // codeTheme - passed in
   // language - passed in
-  codeThemePreference: computed.alias('emberRevealJs.codeThemePreference'),
+  codeThemePreference: alias('emberRevealJs.codeThemePreference'),
   computedCodeTheme: computed('codeTheme', 'codeThemePreference', function() {
     return get(this, 'codeThemePreference') || get(this, 'codeTheme') || 'hybrid';
   })

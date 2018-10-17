@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { not } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import EmberWormhole from 'ember-wormhole/components/ember-wormhole';
 
-const { inject, computed } = Ember;
-
 export default EmberWormhole.extend({
-  emberRevealJs: inject.service(),
+  emberRevealJs: service(),
   // h - passed in
   // v - passed in
 
@@ -23,5 +23,5 @@ export default EmberWormhole.extend({
       }
       return match;
     }),
-  renderInPlace: computed.not('matchesPresentationState')
+  renderInPlace: not('matchesPresentationState')
 });

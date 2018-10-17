@@ -1,16 +1,19 @@
 /* global marked */
-import Ember from 'ember';
-import layout from './template';
+import $ from 'jquery';
 
-const { computed, get, set, isBlank, isPresent } = Ember;
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { set, get, computed } from '@ember/object';
+import { isPresent, isBlank } from '@ember/utils';
+import layout from './template';
 
 // NOTE: This component ports source from the reveal.js speaker notes plugin and
 //       therefore contains much code that is not idiomatic Ember.
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['reveal-speaker-notes'],
   layout,
 
-  emberRevealJs: Ember.inject.service(),
+  emberRevealJs: service(),
 
   didInsertElement() {
     this._super();
@@ -146,8 +149,8 @@ export default Ember.Component.extend({
 
   setupIframes: function( /* data */ ) {
     // BEGIN-MONKEYPATCH setupIframes-properties
-    set(this, 'currentSlide', Ember.$('#current-slide iframe')[0]);
-    set(this, 'upcomingSlide', Ember.$('#upcoming-slide iframe')[0]);
+    set(this, 'currentSlide', $('#current-slide iframe')[0]);
+    set(this, 'upcomingSlide', $('#upcoming-slide iframe')[0]);
     // END-MONKEYPATCH setupIframes-properties
   },
 

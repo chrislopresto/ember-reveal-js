@@ -1,4 +1,3 @@
-@import "normalize";
 @import 'ember-reveal-js';
 
 @import 'components/presentation-listing';
@@ -9,5 +8,5 @@ body {
 }
 
 .atelier-cave-light {
-  @import 'ember-reveal-js/highlight.js/atelier-cave-light';
+  // @import 'ember-reveal-js/highlight.js/atelier-cave-light';
 }

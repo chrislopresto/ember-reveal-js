@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Service from '@ember/service';
+import { get, computed } from '@ember/object';
 
-const { computed, get } = Ember;
-
-export default Ember.Service.extend({
+export default Service.extend({
   indexh: null,
   indexv: null,
   paused: false,

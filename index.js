@@ -1,4 +1,3 @@
-/* jshint node: true */
 'use strict';
 
 var path = require('path');
@@ -24,7 +23,7 @@ module.exports = {
     app.import('vendor/reveal.js/lib/js/classList.js');
     app.import('vendor/reveal.js/plugin/markdown/marked.js');
     app.import('vendor/reveal.js/plugin/markdown/markdown.js');
-    app.import('vendor/reveal.js/plugin/highlight/highlight.js');
+    // app.import('vendor/reveal.js/plugin/highlight/highlight.js');
   },
 
   treeForVendor: function() {
@@ -36,7 +35,7 @@ module.exports = {
         'lib/js/classList.js',
         'plugin/markdown/marked.js',
         'plugin/markdown/markdown.js',
-        'plugin/highlight/highlight.js'
+        // 'plugin/highlight/highlight.js'
       ]
     });
   },
@@ -127,18 +126,18 @@ module.exports = {
       ]
     });
 
-    var highlightJsTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
-      srcDir: '/styles',
-      destDir: '/app/styles/ember-reveal-js/highlight.js'
-    });
-    highlightJsTree = stew.rename(highlightJsTree, '.css', '.scss');
+    // var highlightJsTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
+    //   srcDir: '/styles',
+    //   destDir: '/app/styles/ember-reveal-js/highlight.js'
+    // });
+    // highlightJsTree = stew.rename(highlightJsTree, '.css', '.scss');
 
     return mergeTrees([
         stylesTree,
         replaceCssTree,
         fontCssTree,
         revealPrintCssTree,
-        highlightJsTree
+        // highlightJsTree
       ], {
         overwrite: true
       }
@@ -159,14 +158,14 @@ module.exports = {
       srcDir: '/plugin',
       destDir: '/assets/ember-reveal-js/plugin'
     });
-    var classListTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
-      srcDir: '/lib/js',
-      destDir: '/assets/ember-reveal-js/lib/js'
-    });
+    // var classListTree = new Funnel(unwatchedTree(path.dirname(require.resolve('highlight.js/package.json'))), {
+    //   include: [''],,
+    //   destDir: '/assets/ember-reveal-js/lib/js'
+    // });
     return mergeTrees([
       fontTree,
       pluginTree,
-      classListTree,
+      // classListTree,
       assetsTree
     ]);
   },

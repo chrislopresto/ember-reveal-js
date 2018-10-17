@@ -1,11 +1,12 @@
-/*jshint node:true*/
-/* global require, module */
-var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+'use strict';
+
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 var stew = require('broccoli-stew');
 
 module.exports = function(defaults) {
-  var app = new EmberAddon(defaults, {
+  let app = new EmberAddon(defaults, {
     // Add options here
+    hinting: false
   });
 
   /*

@@ -1,20 +1,20 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-const { computed, inject } = Ember;
-
-export default Ember.Controller.extend({
-  emberRevealJs: inject.service(),
+export default Controller.extend({
+  emberRevealJs: service(),
 
   queryParams: ['h', 'v', 'r', 'p', 'o', 'c', 't', 'ct', 'pw', 'ph', 'print-pdf'],
-  h: computed.alias('emberRevealJs.indexh'),
-  v: computed.alias('emberRevealJs.indexv'),
-  r: computed.alias('emberRevealJs.isSpeakerNotes'),
-  p: computed.alias('emberRevealJs.paused'),
-  o: computed.alias('emberRevealJs.overview'),
-  c: computed.alias('emberRevealJs.controls'),
-  t: computed.alias('emberRevealJs.themePreference'),
-  ct: computed.alias('emberRevealJs.codeThemePreference'),
-  pw: computed.alias('emberRevealJs.presentationWidth'),
-  ph: computed.alias('emberRevealJs.presentationHeight'),
-  'print-pdf': computed.alias('emberRevealJs.printPdf')
+  h: alias('emberRevealJs.indexh'),
+  v: alias('emberRevealJs.indexv'),
+  r: alias('emberRevealJs.isSpeakerNotes'),
+  p: alias('emberRevealJs.paused'),
+  o: alias('emberRevealJs.overview'),
+  c: alias('emberRevealJs.controls'),
+  t: alias('emberRevealJs.themePreference'),
+  ct: alias('emberRevealJs.codeThemePreference'),
+  pw: alias('emberRevealJs.presentationWidth'),
+  ph: alias('emberRevealJs.presentationHeight'),
+  'print-pdf': alias('emberRevealJs.printPdf')
 });

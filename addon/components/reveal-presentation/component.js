@@ -1,30 +1,35 @@
 /* global Reveal, hljs */
-import Ember from 'ember';
+import { alias, not } from '@ember/object/computed';
+
+import { inject as service } from '@ember/service';
+import { observer, set, get, computed } from '@ember/object';
+import { isPresent, isBlank } from '@ember/utils';
+import { on } from '@ember/object/evented';
 import layout from './template';
 import EmberWormhole from 'ember-wormhole/components/ember-wormhole';
-import { EKMixin, keyUp } from 'ember-keyboard';
+import { instrument, subscribe } from '@ember/instrumentation';
 
-const { computed, get, set, observer, isBlank, isPresent, on } = Ember;
+import { EKMixin, keyUp } from 'ember-keyboard';
 
 export default EmberWormhole.extend(EKMixin, {
   layout,
-  keyboard: Ember.inject.service(),
+  keyboard: service(),
 
-  emberRevealJs: Ember.inject.service(),
-  isSpeakerNotes: computed.alias('emberRevealJs.isSpeakerNotes'),
-  isMainWindow: computed.not('isSpeakerNotes'),
-  isPrintingPdf: computed.alias('emberRevealJs.printPdf'),
-  presentationWidth: computed.alias('emberRevealJs.presentationWidth'),
-  presentationHeight: computed.alias('emberRevealJs.presentationHeight'),
+  emberRevealJs: service(),
+  isSpeakerNotes: alias('emberRevealJs.isSpeakerNotes'),
+  isMainWindow: not('isSpeakerNotes'),
+  isPrintingPdf: alias('emberRevealJs.printPdf'),
+  presentationWidth: alias('emberRevealJs.presentationWidth'),
+  presentationHeight: alias('emberRevealJs.presentationHeight'),
   // presentation-class - passed in
 
   transition: 'slide', // none|fade|slide|convex|concave|zoom
   backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
   progress: true,
-  controls: computed.alias('emberRevealJs.controls'),
+  controls: alias('emberRevealJs.controls'),
   center: true,
   // theme - passed in
-  themePreference: computed.alias('emberRevealJs.themePreference'),
+  themePreference: alias('emberRevealJs.themePreference'),
   computedTheme: computed('theme', 'themePreference', function() {
     return get(this, 'themePreference') || get(this, 'theme') || 'black';
   }),
@@ -50,7 +55,7 @@ export default EmberWormhole.extend(EKMixin, {
     return ['//', location.host, location.pathname, qs].join('');
   },
 
-  launchSpeakerNotes: on(keyUp('s'), function() {
+  launchSpeakerNotes: on(keyUp('KeyS'), function() {
     if (get(this, 'isSpeakerNotes')) {
       return;
     }
@@ -68,7 +73,7 @@ export default EmberWormhole.extend(EKMixin, {
     Reveal.addEventListener('paused', this._revealPaused);
     Reveal.addEventListener('resumed', this._revealResumed);
     let self = this;
-    Ember.subscribe('emberRevealJs.message', {
+    subscribe('emberRevealJs.message', {
       before() {},
       after(name, timestamp, payload) {
         self._syncRevealState(payload);
@@ -76,7 +81,7 @@ export default EmberWormhole.extend(EKMixin, {
     });
     this._setRevealState();
     window.RevealMarkdown.convertSlides();
-    hljs.initHighlightingOnLoad();
+    // hljs.initHighlightingOnLoad();
   },
 
   presentationStateDidChange: observer(
@@ -105,27 +110,27 @@ export default EmberWormhole.extend(EKMixin, {
   },
 
   _revealSlideChanged(event) {
-    Ember.instrument('emberRevealJs.message', event);
+    instrument('emberRevealJs.message', event);
   },
 
   _revealOverviewShown(event) {
     event.overview = true;
-    Ember.instrument('emberRevealJs.message', event);
+    instrument('emberRevealJs.message', event);
   },
 
   _revealOverviewHidden(event) {
     event.overview = false;
-    Ember.instrument('emberRevealJs.message', event);
+    instrument('emberRevealJs.message', event);
   },
 
   _revealPaused(event) {
     event.paused = true;
-    Ember.instrument('emberRevealJs.message', event);
+    instrument('emberRevealJs.message', event);
   },
 
   _revealResumed(event) {
     event.paused = false;
-    Ember.instrument('emberRevealJs.message', event);
+    instrument('emberRevealJs.message', event);
   },
 
   _syncRevealState(state) {

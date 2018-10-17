@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 import layout from './template';
 
-const { computed, get } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNames: ['RevealSlide'],
   attributeBindings: [
